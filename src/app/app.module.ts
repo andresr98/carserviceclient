@@ -12,11 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarEditComponent } from './car-edit/car-edit.component';
 import { FormsModule } from '@angular/forms';
 
+import {OwnerService} from './shared/owner/owner.service';
+import { OwnerListComponent } from './owner-list/owner-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     CarListComponent,
-    CarEditComponent
+    CarEditComponent,
+    OwnerListComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,7 @@ import { FormsModule } from '@angular/forms';
     MatToolbarModule,
     FormsModule
   ],
-  providers: [],
+  providers: [OwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
