@@ -1,1 +1,11 @@
-<p>owner-list works!</p>
+<a [routerLink]="['/owner-list']" *ngFor="let owner of owners">
+    <mat-card >
+        <mat-card-title> {{owner.name}}</mat-card-title>
+        <mat-card-subtitle> {{owner.dni}}</mat-card-subtitle>
+        <mat-card-content>
+            {{owner.profession}}
+        </mat-card-content>
+    </mat-card>
+</a>
+<br>
+<button mat-fab color="primary" [routerLink]="['/car-add']">Add</button>

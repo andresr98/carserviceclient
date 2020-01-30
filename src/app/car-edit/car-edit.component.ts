@@ -48,6 +48,7 @@ export class CarEditComponent implements OnInit, OnDestroy {
   }
 
   save(form: NgForm) {
+    console.log(form);
     this.carService.save(form).subscribe(result => {
       this.gotoList();
     }, error => console.error(error));

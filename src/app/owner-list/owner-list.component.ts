@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OwnerService } from '../shared/owner/owner.service'
 
 @Component({
   selector: 'app-owner-list',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OwnerListComponent implements OnInit {
 
-  constructor() { }
+  owners = [];
+
+  constructor(private ownerService: OwnerService) { 
+    this.ownerService.getAllOwners().subscribe(data => {
+      this.owners = data._embedded.owners;
+      console.log(this.owners);
+    }, 
+      error => {
+        console.log('No me conecté a la API');
+      });
+  }
 
   ngOnInit() {
   }
