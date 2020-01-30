@@ -20,7 +20,7 @@ export class OwnerService {
     return this.http.get<any>(newAPI);
   }
 
-  save(owner: any): Observable<any> {
+  saveOwner(owner: any): Observable<any> {
     let result: Observable<Object>;
     if (owner['href']) {
       result = this.http.put(owner.href, owner);
@@ -28,5 +28,9 @@ export class OwnerService {
       result = this.http.post(this.ownerAPI, owner);
     }
     return result;
+  }
+
+  deleteOwnerByHref(href: any): Observable<any> {
+    return this.http.delete<any>(href);
   }
 }

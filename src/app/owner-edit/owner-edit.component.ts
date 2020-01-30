@@ -28,26 +28,34 @@ export class OwnerEditComponent implements OnInit {
           if(data._embedded.owners[0]) {
             this.owner = data._embedded.owners[0];
             this.owner.href = this.owner._links.owner.href
-            console.log(this.owner._links.owner.href);
           } else {
             console.log("No existe el Owner con el dni ingresado");
             this.gotoList();
           }
         }, err => {
-          console.log("No existe el Owner con el dni ingresado");
+          console.log("No se puede conectar con el API");
           this.gotoList();
         })
       }
     });
   }
 
-  save(form: NgForm) {
-    this.ownerService.save(form).subscribe( result => {
-      console.log(result);
+  saveOwner(form: NgForm) {
+    this.ownerService.saveOwner(form).subscribe( result => {
+      console.log('Owner creado con éxito');
       this.gotoList();
     }, error => {
       console.log('Error al actualizar o eliminar el usuario');
     })
+  }
+
+  deleteOwner(href) {
+    this.ownerService.deleteOwnerByHref(href).subscribe(result => {
+      console.log('Owner eliminado con éxito');
+      this.gotoList();
+    }, err => {
+      console.log('No se puede borrar el Owner');
+    });
   }
 
   gotoList() {
