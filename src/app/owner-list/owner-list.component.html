@@ -1,4 +1,4 @@
-<a [routerLink]="['/owner-list']" *ngFor="let owner of owners">
+<a [routerLink]="['/owner-edit', owner.dni ]" *ngFor="let owner of owners">
     <mat-card >
         <mat-card-title> {{owner.name}}</mat-card-title>
         <mat-card-subtitle> {{owner.dni}}</mat-card-subtitle>
@@ -8,4 +8,4 @@
     </mat-card>
 </a>
 <br>
-<button mat-fab color="primary" [routerLink]="['/car-add']">Add</button>
+<button mat-fab color="primary" [routerLink]="['/owner-add']">Add</button>

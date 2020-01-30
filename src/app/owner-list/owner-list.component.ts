@@ -12,11 +12,11 @@ export class OwnerListComponent implements OnInit {
 
   constructor(private ownerService: OwnerService) { 
     this.ownerService.getAllOwners().subscribe(data => {
+      console.log(data);
       this.owners = data._embedded.owners;
-      console.log(this.owners);
     }, 
       error => {
-        console.log('No me conecté a la API');
+        console.log('No se puede traer los Owners');
       });
   }
 
