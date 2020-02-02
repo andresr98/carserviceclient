@@ -10,8 +10,8 @@ import { OwnerService } from '../shared/owner/owner.service'
   styleUrls: ['./owner-edit.component.css']
 })
 export class OwnerEditComponent implements OnInit {
-
-  owner: any = {};
+  
+  owners = [];
   sub: Subscription;
 
   constructor(
@@ -26,8 +26,11 @@ export class OwnerEditComponent implements OnInit {
       if (idOwner) {
         this.ownerService.getOwnerByDni(idOwner).subscribe(data => {
           if(data._embedded.owners[0]) {
-            this.owner = data._embedded.owners[0];
-            this.owner.href = this.owner._links.owner.href
+            this.owners = data._embedded.owners;
+
+            for (const owner of this.owners) {
+              owner.href = owner._links.owner.href
+            }
           } else {
             console.log("No existe el Owner con el dni ingresado");
             this.gotoList();
@@ -36,6 +39,8 @@ export class OwnerEditComponent implements OnInit {
           console.log("No se puede conectar con el API");
           this.gotoList();
         })
+      } else {
+        this.owners.push({});
       }
     });
   }
@@ -49,10 +54,13 @@ export class OwnerEditComponent implements OnInit {
     })
   }
 
-  deleteOwner(href) {
+  deleteOwner(href, index) {
     this.ownerService.deleteOwnerByHref(href).subscribe(result => {
+      this.owners.splice(index,1);
       console.log('Owner eliminado con éxito');
-      this.gotoList();
+      if(this.owners.length === 0) {
+        this.gotoList();
+      }
     }, err => {
       console.log('No se puede borrar el Owner');
     });
