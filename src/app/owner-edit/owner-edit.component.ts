@@ -10,7 +10,7 @@ import { OwnerService } from '../shared/owner/owner.service'
   styleUrls: ['./owner-edit.component.css']
 })
 export class OwnerEditComponent implements OnInit {
-  
+
   owners = [];
   sub: Subscription;
 
@@ -48,7 +48,10 @@ export class OwnerEditComponent implements OnInit {
   saveOwner(form: NgForm) {
     this.ownerService.saveOwner(form).subscribe( result => {
       console.log('Owner creado con éxito');
-      this.gotoList();
+
+      if (this.owners.length === 1) {
+        this.gotoList();
+      }
     }, error => {
       console.log('Error al actualizar o eliminar el usuario');
     })
