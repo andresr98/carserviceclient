@@ -3,7 +3,7 @@
 <a [routerLink]="['/car-edit', car.id]" *ngFor="let car of cars">
   <mat-card class="card">
     <mat-card-title>{{car.name}}</mat-card-title>
-    <mat-card-subtitle> {{car.ownerDni}}</mat-card-subtitle>
+    <mat-card-subtitle> {{car.ownerName}}</mat-card-subtitle>
     <img mat-card-image src="{{car.giphyUrl}}" alt="{{car.name}}">
   </mat-card>
   <br>
