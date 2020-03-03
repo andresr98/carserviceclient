@@ -5,3 +5,8 @@
 a {
     text-decoration: none;
 }
+
+.car-list {
+    display: flex;
+    flex-wrap: wrap;
+}
