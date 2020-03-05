@@ -10,16 +10,15 @@ export class OwnerListComponent implements OnInit {
 
   owners = [];
 
-  constructor(private ownerService: OwnerService) { 
+  constructor(private ownerService: OwnerService) { }
+
+  ngOnInit() {
     this.ownerService.getAllOwners().subscribe(data => {
       this.owners = data._embedded.owners;
-    }, 
+    },
       error => {
         console.log('No se puede traer los Owners');
       });
-  }
-
-  ngOnInit() {
   }
 
 }
