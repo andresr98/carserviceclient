@@ -60,8 +60,8 @@ export class OwnerEditComponent implements OnInit {
   }
 
   deleteOwner(href, index, dni) {
-
-    this.removeRealtion(dni);
+    
+    this.ownerService.removeRelation(dni);
     
     this.ownerService.deleteOwnerByHref(href).subscribe(result => {
       this.owners.splice(index, 1);
@@ -77,27 +77,7 @@ export class OwnerEditComponent implements OnInit {
   gotoList() {
     this.router.navigate(['/owner-list']);
   }
-
-  removeRealtion(dni) {
-    this.carService.getAll().subscribe(data => {
-
-      const cars = data;
-
-      for (let car of cars) {
-        if (car.ownerDni == dni) {
-          car.ownerDni = null;
-          this.carService.save(car).subscribe(data => {
-            console.log("Relacion eliminada");
-          }, error => {
-            console.log("No se puede borrar la relación");
-          });
-        }
-      }
-    }, error => {
-      console.log("No se pueden traer todos los carros");
-    });
-  }
-
+  
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
