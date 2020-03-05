@@ -1,14 +1,15 @@
 <h2>Car List</h2>
 
 <div class="car-list">
-
-<a [routerLink]="['/car-edit', car.id]" *ngFor="let car of cars">
-  <mat-card class="card">
-    <mat-card-title>{{car.name}}</mat-card-title>
-    <mat-card-subtitle> {{car.ownerName}}</mat-card-subtitle>
-    <img mat-card-image src="{{car.giphyUrl}}" alt="{{car.name}}">
-  </mat-card>
-  <br>
-</a>
+  <div *ngFor="let car of cars">
+  <a [routerLink]="['/car-edit', car.id]" >
+    <mat-card class="card">
+      <mat-card-title>{{car.name}}</mat-card-title>
+      <mat-card-subtitle> {{car.ownerName}}</mat-card-subtitle>
+      <img class="image" mat-card-image src="{{car.giphyUrl}}" alt="{{car.name}}">
+    </mat-card>
+    <br>
+  </a>
+  </div>
 </div>
 <button mat-fab color="primary" [routerLink]="['/car-add']">Add</button>

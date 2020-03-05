@@ -1,6 +1,8 @@
 .card {
-    max-width: 300px;
+    max-width: 500px;
+    max-height: 300px;
     margin: 20px;
+    border-radius: 5px;
 }
 a {
     text-decoration: none;
@@ -10,3 +12,11 @@ a {
     display: flex;
     flex-wrap: wrap;
 }
+
+.image {
+    width: 250px;
+    height: 175px;
+    padding: auto;
+    margin: 2px;
+}
+
