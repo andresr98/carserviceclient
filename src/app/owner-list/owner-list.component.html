@@ -1,9 +1,9 @@
 <h2>Owner List</h2>
-<div style="display: flex;">
-    <div style="display: flex" *ngFor="let owner of owners; let i = index">
-        <div>
+<div>
+    <div class="container" *ngFor="let owner of owners; let i = index">
+        <div *ngIf="owner.visible">
             <a [routerLink]="['/owner-edit', owner.dni ]">
-                <mat-card>
+                <mat-card class="card">
                     <mat-card-title> {{owner.name}}</mat-card-title>
                     <mat-card-subtitle> {{owner.dni}}</mat-card-subtitle>
                     <mat-card-content>
@@ -12,12 +12,12 @@
                 </mat-card>
             </a>
         </div>
-        <div>
+        <div *ngIf="owner.visible">
             <mat-checkbox [(ngModel)]="owner.checked" (change)="changeCheckBoxEvent($event, i)"></mat-checkbox>
         </div>
 
     </div>
 </div>
 <br>
-<button mat-fab color="primary" [routerLink]="['/owner-add']">Add</button>
-<button mat-fab color="warn" *ngIf="indexOwners.size" (click)="deleteOwners()">Delete</button>
+<button mat-fab color="primary" class="fab-button" [routerLink]="['/owner-add']">Add</button>
+<button mat-fab color="warn"  class = "fab-button" *ngIf="indexOwners.size" (click)="deleteOwners()">Delete</button>

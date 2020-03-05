@@ -9,7 +9,6 @@ import { OwnerService } from '../shared/owner/owner.service';
 export class OwnerListComponent implements OnInit {
 
   owners = [];
-  selecteds = 0;
   indexOwners = new Map();
 
   constructor(private ownerService: OwnerService) { }
@@ -21,6 +20,7 @@ export class OwnerListComponent implements OnInit {
       for (const owner of this.owners) {
         owner.href = owner._links.owner.href;
         owner.checked = false;
+        owner.visible = true;
       }
     },
       error => {
@@ -30,21 +30,26 @@ export class OwnerListComponent implements OnInit {
 
   changeCheckBoxEvent(event, index) {
     if (event.checked === true) {
-      this.selecteds++;
       this.indexOwners.set(index, index);
     } else {
-      this.selecteds--;
       this.indexOwners.delete(index);
     }
   }
 
   deleteOwners() {
     this.indexOwners.forEach(key => {
+
       const owner = this.owners[key];
 
       this.ownerService.removeRelation(owner.dni);
 
-      this.ownerService.deleteOwnerByHref(owner.href)
+      this.ownerService.deleteOwnerByHref(owner.href).subscribe(result => {
+        console.log("Owner elimando con éxito");
+        this.indexOwners.delete(key);
+        owner.checked = false;
+        owner.visible = false;
+      },
+        error => console.log("No se puede elimnar el owner"));
     });
   }
 }

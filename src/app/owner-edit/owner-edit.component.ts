@@ -61,7 +61,7 @@ export class OwnerEditComponent implements OnInit {
 
   deleteOwner(href, index, dni) {
     
-    this.ownerService.removeRealtion(dni);
+    this.ownerService.removeRelation(dni);
     
     this.ownerService.deleteOwnerByHref(href).subscribe(result => {
       this.owners.splice(index, 1);
