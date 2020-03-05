@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { OwnerService } from '../shared/owner/owner.service'
+import { CarService } from '../shared/car/car.service'
 
 @Component({
   selector: 'app-owner-edit',
@@ -16,16 +17,17 @@ export class OwnerEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router, 
-    private ownerService: OwnerService) { }
+    private router: Router,
+    private ownerService: OwnerService,
+    private carService: CarService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      const idOwner = params['id']; 
+      const idOwner = params['id'];
 
       if (idOwner) {
         this.ownerService.getOwnerByDni(idOwner).subscribe(data => {
-          if(data._embedded.owners[0]) {
+          if (data._embedded.owners[0]) {
             this.owners = data._embedded.owners;
 
             for (const owner of this.owners) {
@@ -46,7 +48,7 @@ export class OwnerEditComponent implements OnInit {
   }
 
   saveOwner(form: NgForm) {
-    this.ownerService.saveOwner(form).subscribe( result => {
+    this.ownerService.saveOwner(form).subscribe(result => {
       console.log('Owner creado con éxito');
 
       if (this.owners.length === 1) {
@@ -57,11 +59,14 @@ export class OwnerEditComponent implements OnInit {
     })
   }
 
-  deleteOwner(href, index) {
+  deleteOwner(href, index, dni) {
+
+    this.removeRealtion(dni);
+    
     this.ownerService.deleteOwnerByHref(href).subscribe(result => {
-      this.owners.splice(index,1);
+      this.owners.splice(index, 1);
       console.log('Owner eliminado con éxito');
-      if(this.owners.length === 0) {
+      if (this.owners.length === 0) {
         this.gotoList();
       }
     }, err => {
@@ -71,6 +76,26 @@ export class OwnerEditComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/owner-list']);
+  }
+
+  removeRealtion(dni) {
+    this.carService.getAll().subscribe(data => {
+
+      const cars = data;
+
+      for (let car of cars) {
+        if (car.ownerDni == dni) {
+          car.ownerDni = null;
+          this.carService.save(car).subscribe(data => {
+            console.log("Relacion eliminada");
+          }, error => {
+            console.log("No se puede borrar la relación");
+          });
+        }
+      }
+    }, error => {
+      console.log("No se pueden traer todos los carros");
+    });
   }
 
   ngOnDestroy() {
