@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { OwnerService } from '../shared/owner/owner.service'
-import { CarService } from '../shared/car/car.service'
+import { OwnerService } from '../shared/owner/owner.service';
 
 @Component({
   selector: 'app-owner-edit',
@@ -18,8 +17,7 @@ export class OwnerEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ownerService: OwnerService,
-    private carService: CarService) { }
+    private ownerService: OwnerService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
